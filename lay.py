@@ -88,3 +88,22 @@ class Vector:
     def _repr_latex_(self):
         entries = r" \\ ".join(str(e) for e in self._entries)
         return rf"\[ \begin{{bmatrix}} {entries} \end{{bmatrix}} \]"
+
+class Matrix:
+    def __init__(self, rows):
+        # working under the assumption that entries is a tuple of tuples
+        entries = list()
+
+        for row in rows:
+            entries.append(tuple(row))
+
+        self._entries = tuple(entries)
+
+    def __repr__(self):
+        output = ""
+        for row in self._entries:
+            for item in row:
+                output += str(item) + " "
+            output += "\n"
+
+        return output
