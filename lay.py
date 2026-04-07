@@ -72,6 +72,9 @@ class Vector:
         string += ']'
 
         return string
+
+    def to_tuple(self):
+        return tuple(self._entries)
     
     def __eq__(self, other):
         if not isinstance(other, Vector):
@@ -95,7 +98,13 @@ class Matrix:
         entries = list()
 
         for row in rows:
-            entries.append(tuple(row))
+            if isinstance(row, (list, tuple, Vector)):
+                if isinstance(row, Vector):
+                    entries.append(row.to_tuple())
+                else:
+                    entries.append(tuple(row))
+            else:
+                raise TypeError(f'{row} has incompatible type {type(row)}')
 
         self._entries = tuple(entries)
 
